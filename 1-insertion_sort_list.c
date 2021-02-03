@@ -14,34 +14,31 @@ void insertion_sort_list(listint_t **list)
 	if (!list || !(*list) || (!(*list)->next))
 		return;
 
-	if (list != NULL && *list != NULL)
+	actual = temp->next;
+	while (actual != NULL)
 	{
-		actual = temp->next;
-		while (actual != NULL)
+		change = actual->prev;
+		temp = actual->next;
+		while (change->n > actual->n)
 		{
-			change = actual->prev;
-			temp = actual->next;
-			while (change->n > actual->n)
+			if (actual->next != NULL)
+				actual->next->prev = change;
+			if (change->prev != NULL)
+				change->prev->next = actual;
+			change->next = actual->next;
+			actual->prev = change->prev;
+			actual->next = change;
+			change->prev = actual;
+			if (actual->prev != NULL)
+				change = actual->prev;
+			else
 			{
-				if (actual->next != NULL)
-					actual->next->prev = change;
-				if (change->prev != NULL)
-					change->prev->next = actual;
-				change->next = actual->next;
-				actual->prev = change->prev;
-				actual->next = change;
-				change->prev = actual;
-				if (actual->prev != NULL)
-					change = actual->prev;
-				else
-				{
-					*list = actual;
-					print_list(*list);
-					break;
-				}
+				*list = actual;
 				print_list(*list);
+				break;
 			}
-			actual = temp;
+			print_list(*list);
 		}
+		actual = temp;
 	}
 }
