@@ -50,7 +50,7 @@ int Lomuto(int *array, size_t size, int low, int high)
 		array[high] = tmp;
 		print_array(array, size);
 	}
-	return i;
+	return (i);
 }
 
 /**
